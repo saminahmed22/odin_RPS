@@ -1,1 +1,1 @@
-# odin_RPS
+A rock, paper, scissor game project made for The Odin Project as a test or something, idk.
