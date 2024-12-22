@@ -6,7 +6,9 @@
 */
 
 function getComputerChoice(){
+
     const computer_choice = null;
+
     random_number =  Math.floor((Math.random() * 3) + 1);
     if (random_number === 1){
         computer_choice = "rock";
@@ -22,13 +24,15 @@ function getComputerChoice(){
 
 function getHumanChoice(){
     while (true){
-        human_choice = Number(prompt("Enter Your choice between 1-3 for Rock, Paper, Scissor respectfully: "));
 
-        if (1 <= human_choice && human_choice <= 3){
+        get_human_choice = prompt("Enter Your choice between Rock, Paper and Scissor: ");
+        human_choice = get_human_choice.toLowerCase()
+
+        if (human_choice === "rock" || human_choice === "paper" || human_choice === "scissor"){
             return human_choice;
         }
         else{
-            alert("Invalid input, please enter a number between 1-3");
+            alert("Invalid input, please enter a number between Rock, Paper and Scissor");
         }
     }
 }
