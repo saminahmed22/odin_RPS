@@ -30,7 +30,7 @@ function getHumanChoice(){
             return human_choice;
         }
         else{
-            alert("Invalid input, please enter a number between Rock, Paper and Scissor");
+            alert("Invalid input, please enter your choice between Rock, Paper and Scissor");
         }
     }
 }
@@ -116,4 +116,5 @@ function playGame(){
         console.log("Computer wins the game with " + computer_score + " points!")
     }
 }
+
 playGame()
