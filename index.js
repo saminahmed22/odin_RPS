@@ -116,5 +116,3 @@ function playGame(){
         console.log("Computer wins the game with " + computer_score + " points!")
     }
 }
-
-playGame()
