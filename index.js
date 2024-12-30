@@ -1,113 +1,78 @@
+const option_values = {rock: 1, paper: 2, scissor: 3};
+const option_values_reversed = {1: "Rock", 2: "Paper", 3:"Scissor"};
 
-/*
-1 = Rock
-2 = paper
-3 = scissor
-*/
-
-function getComputerChoice(){
-    let computer_choice = null;
-
-    let random_number =  Math.floor((Math.random() * 3) + 1);
-    if (random_number === 1){
-        computer_choice = "rock";
-    }
-    else if (random_number === 2){
-        computer_choice = "paper";
-    }
-    else{
-        computer_choice = "scissor";
-    }
-    return computer_choice;
+function getComputerChoice() {
+    return (Math.floor(Math.random() * 3) + 1);
 }
 
-function getHumanChoice(){
-    while (true){
-
-        let human_choice = prompt("Enter Your choice between Rock, Paper and Scissor: ").toLowerCase();
-
-        if (human_choice === "rock" || human_choice === "paper" || human_choice === "scissor"){
-            return human_choice;
-        }
-        else{
-            alert("Invalid input, please enter your choice between Rock, Paper and Scissor");
-        }
-    }
-}
+round = 1;
+human_score = 0;
+computer_score = 0;
 
 function playRound(human_choice, computer_choice){
 
-    if (human_choice === "rock" && computer_choice === "paper") {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("Computer wins this round!");
-        computer_score += 1;
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
-    } 
-    else if (human_choice === "rock" && computer_choice === "scissor") {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("Human wins this round!");
+    console.log("Round: " + round);
+    console.log("Human Score: " + human_score);
+    console.log("Computer Score: " + computer_score);
+    
+    human_choice_converted = option_values[human_choice];
+    console.log("Human choosed: " + option_values_reversed[human_choice_converted]);
+    console.log("Computer choosed: " + option_values_reversed[computer_choice])
+
+    if(human_choice_converted === computer_choice){
+        console.log("Draw");
+        console.log("No points were given");
+    }
+    else if(human_choice_converted === 1 && computer_choice === 3){
+        console.log("Human wins!");
+        console.log("Human got 1 point");
         human_score += 1;
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
     }
-    else if (human_choice === "paper" && computer_choice === "rock") {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("Human wins this round!");
-        human_score += 1;
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
-    }
-    else if (human_choice === "paper" && computer_choice === "scissor") {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("Computer wins this round!");
+    else if(human_choice_converted === 3 && computer_choice === 1){
+        console.log("Computer wins!");
+        console.log("Computer got 1 point");
         computer_score += 1;
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
     }
-    else if (human_choice === "scissor" && computer_choice === "rock") {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("Computer wins this round!");
-        computer_score += 1;
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
-    }
-    else if (human_choice === "scissor" && computer_choice === "paper") {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("Human wins this round!");
-        human_score += 1;
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
-    }
-    else {
-        console.log("Human Choice: " + human_choice);
-        console.log("Computer Choice: " + computer_choice);
-        console.log("It's a draw! No points awarded.");
-        console.log("Human Score: " + human_score);
-        console.log("Computer Score: " + computer_score);
+    else{
+        if(human_choice_converted > computer_choice){
+            console.log("Human wins!");
+            console.log("Human got 1 point");
+            human_score += 1;
+        }
+        else{
+            console.log("Computer wins!");
+            console.log("Computer got 1 point");
+            computer_score += 1;
+        }
     }
 }
 
-
-function playGame(){
-    human_score = 0;
-    computer_score = 0;
-    round = 0;
-    for(i = 1; i <= 5; i++){
-        let human_selection = getHumanChoice();
-        let computer_selection = getComputerChoice();
-        round += 1;
-        console.log("Round: " + round)
-        playRound(human_selection, computer_selection);
+function playGame(human_selection){
+    if(round <= 5){
+        if(round < 5){
+            let computer_selection = getComputerChoice();
+            playRound(human_selection, computer_selection);     
+            round += 1;
+        }
+        else if(round === 5){
+            let computer_selection = getComputerChoice();
+            playRound(human_selection, computer_selection);
+            round += 1;     
+            result();
+            console.log("***GAME OVER***");
+            console.log("Please refresh the page to restart");
+        };
     }
+    
+}
+
+function result(){
+
+    console.log("Human final score: " + human_score);
+    console.log("Computer final score: " + computer_score);
+
     if(human_score === computer_score){
-        console.log("The game ends in a draw!")
+        console.log("The game ends in a draw!");
     }
     else if (human_score > computer_score){
         console.log("Human wins the game with " + human_score + " points!")
@@ -115,4 +80,12 @@ function playGame(){
     else{
         console.log("Computer wins the game with " + computer_score + " points!")
     }
-}
+};
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const choice = button.id;
+            playGame(choice);                
+        });
+});
